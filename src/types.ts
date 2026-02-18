@@ -17,4 +17,5 @@ export interface EmailData {
   currentWeek: number;
   totalWeeks: number;
   weeks: WeekData[];
+  currentDate: string;
 }

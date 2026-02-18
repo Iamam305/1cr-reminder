@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { Resend } from 'resend';
 import { buildWeeklyReminderHtml } from './emails/weekly-reminder';
-import { calculateWeeks, getCurrentWeekNumber, getWeeksRemaining } from './utils/weekCalculator';
+import { calculateWeeks, formatDate, getCurrentWeekNumber, getWeeksRemaining } from './utils/weekCalculator';
 import type { CloudflareBindings } from './types';
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
@@ -42,13 +42,15 @@ app.post('/send-reminder', async (c) => {
   const currentWeek = getCurrentWeekNumber();
   const weeksRemaining = getWeeksRemaining();
   const totalWeeks = weeks.length;
+  const currentDate = formatDate(new Date());
   const html = buildWeeklyReminderHtml({
     weeksRemaining,
     currentWeek,
     totalWeeks,
     weeks,
+    currentDate,
   });
-  const subject = `[1cr reminder] ${weeksRemaining} weeks left to march 2028 got 1 cr yet`;
+  const subject = `[1cr reminder 🚀] ${weeksRemaining} weeks left to march 2028, got 1 cr yet?? 🤔 · ${currentDate}`;
 
   const resend = new Resend(env.RESEND_API_KEY);
   const [to, ...cc] = emailRecipients;

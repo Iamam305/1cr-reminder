@@ -23,7 +23,7 @@ function getCellColor(status: WeekData['status']): string {
 }
 
 export function buildWeeklyReminderHtml(data: EmailData): string {
-  const { weeksRemaining, currentWeek, totalWeeks, weeks } = data;
+  const { weeksRemaining, currentWeek, totalWeeks, weeks, currentDate } = data;
   const weeksPerRow = 20;
   const rows: WeekData[][] = [];
   for (let i = 0; i < weeks.length; i += weeksPerRow) {
@@ -68,6 +68,7 @@ export function buildWeeklyReminderHtml(data: EmailData): string {
     <tr>
       <td style="padding:0 40px 30px;">
         <p style="margin:0;font-size:18px;line-height:1.4;color:#666666;text-align:center;">Got 1 cr yet? Keep pushing!</p>
+        <p style="margin:8px 0 0;font-size:14px;color:#6b7280;text-align:center;">As of ${escapeHtml(currentDate)}</p>
       </td>
     </tr>
     <tr>
@@ -101,6 +102,7 @@ export function buildWeeklyReminderHtml(data: EmailData): string {
     </tr>
     <tr>
       <td style="padding:20px 40px;background-color:#f9fafb;border-radius:6px;">
+        <p style="margin:8px 0;font-size:14px;line-height:1.6;color:#333333;"><strong>Date:</strong> ${escapeHtml(currentDate)}</p>
         <p style="margin:8px 0;font-size:14px;line-height:1.6;color:#333333;"><strong>Current Week:</strong> Week ${escapeHtml(String(currentWeek))} of ${escapeHtml(String(totalWeeks))}</p>
         <p style="margin:8px 0;font-size:14px;line-height:1.6;color:#333333;"><strong>Weeks Remaining:</strong> ${escapeHtml(String(weeksRemaining))}</p>
         <p style="margin:8px 0;font-size:14px;line-height:1.6;color:#333333;"><strong>Start Date:</strong> ${startDateStr}</p>
