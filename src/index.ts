@@ -22,15 +22,20 @@ app.post('/send-reminder', async (c) => {
     return c.json({ ok: false, error: 'Unauthorized' }, 401);
   }
 
-  let emailRecipients: string[];
+  let body: { emails?: unknown };
   try {
-    emailRecipients = JSON.parse(env.EMAIL_RECIPIENTS || '[]');
+    body = await c.req.json();
   } catch {
-    return c.json({ ok: false, error: 'Invalid EMAIL_RECIPIENTS' }, 500);
+    return c.json({ ok: false, error: 'Invalid JSON body' }, 400);
   }
 
+  const raw = body.emails;
+  if (!Array.isArray(raw) || raw.length === 0) {
+    return c.json({ ok: false, error: 'Body must include "emails": non-empty array of email addresses' }, 400);
+  }
+  const emailRecipients = raw.filter((e): e is string => typeof e === 'string');
   if (emailRecipients.length === 0) {
-    return c.json({ ok: false, error: 'No email recipients configured' }, 400);
+    return c.json({ ok: false, error: 'Body must include "emails": non-empty array of email addresses' }, 400);
   }
 
   const weeks = calculateWeeks();

@@ -7,7 +7,6 @@ export interface WeekData {
 
 export interface CloudflareBindings {
   RESEND_API_KEY: string;
-  EMAIL_RECIPIENTS: string; // JSON array string
   FROM_EMAIL: string;
   /** Optional. If set, request must include Authorization: Bearer <CRON_SECRET> or x-cron-secret header. */
   CRON_SECRET?: string;

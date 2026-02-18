@@ -2,10 +2,6 @@
 # Get your API key from https://resend.com/api-keys
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-# Email Recipients (JSON array)
-# Example: ["email1@example.com", "email2@example.com"]
-EMAIL_RECIPIENTS=["your-email@example.com"]
-
 # From Email Address
 # Must be a verified domain in Resend
 FROM_EMAIL=reminder@yourdomain.com
@@ -13,3 +9,5 @@ FROM_EMAIL=reminder@yourdomain.com
 # Optional: Secret to protect POST /send-reminder. If set, your external cron must send
 # Authorization: Bearer <CRON_SECRET> or x-cron-secret: <CRON_SECRET>
 CRON_SECRET=your-secret-here
+
+# Emails are sent in the POST body: { "emails": ["a@example.com", "b@example.com"] }
