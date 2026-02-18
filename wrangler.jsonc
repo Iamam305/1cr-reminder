@@ -23,9 +23,13 @@
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
+  "vars": {
+    "FROM_EMAIL": "",
+    "RESEND_API_KEY": "",
+    "CRON_SECRET": ""
+  },
+  // Override RESEND_API_KEY and CRON_SECRET via: npx wrangler secret put RESEND_API_KEY
+  // (do not commit real values here). For local dev, use .dev.vars.
   // "kv_namespaces": [
   //   {
   //     "binding": "MY_KV_NAMESPACE",
